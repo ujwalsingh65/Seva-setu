@@ -1,0 +1,26 @@
+{
+  "name": "sevasetu-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SevaSetu — Intelligent Community Volunteer Coordination Platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"web,api\" -c \"cyan,green\" \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --workspace=@sevasetu/web",
+    "dev:api": "npm run dev --workspace=@sevasetu/api",
+    "dev:agent": "cd apps/agent && python -m uvicorn app.main:app --reload --port 8000",
+    "build": "npm run build --workspaces --if-present",
+    "type-check": "npm run type-check --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
+  }
+}
